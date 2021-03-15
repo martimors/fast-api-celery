@@ -2,7 +2,7 @@ from celery import Celery
 from long_running_task import long_running_task
 
 
-app = Celery("tasks", broker="redis://redis", backend="redis://redis")
+app = Celery("tasks", broker="redis://localhost", backend="redis://localhost")
 
 
 @app.task

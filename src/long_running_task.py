@@ -1,8 +1,7 @@
 import time
-from typing import Dict
+from models.taskresult import TaskResult
 
-def long_running_task() -> Dict[str, str]:
-    time.sleep(10)
-    return {
-        "foo": "bar"
-    }
+
+def long_running_task() -> TaskResult:
+    time.sleep(60)
+    return TaskResult(foo="bar")
