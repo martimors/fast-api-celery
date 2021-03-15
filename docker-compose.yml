@@ -1,0 +1,6 @@
+version: "3.7"
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+  redis:
+    image: redis:6-buster
