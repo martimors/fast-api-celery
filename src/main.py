@@ -1,10 +1,13 @@
 from typing import Optional
+import uuid
 
 from fastapi import FastAPI
 
 from models.response import Response
-from long_running_task import long_running_task
+from tasks import run_long_task_in_background
 import logging
+
+from starlette.status import HTTP_202_ACCEPTED
 
 
 # setup loggers
@@ -25,7 +28,8 @@ def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/task", response_model=Response)
+@app.get("/task", response_model=Response, status_code=HTTP_202_ACCEPTED)
 def start_task():
     logger.info("Started loooong task")
-    return long_running_task()
+    result = run_long_task_in_background.delay()
+    return {"id": uuid.uuid4()}

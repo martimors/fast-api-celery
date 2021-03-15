@@ -1,6 +1,18 @@
 version: "3.7"
 services:
-  rabbitmq:
-    image: rabbitmq:3-management
   redis:
     image: redis:6-buster
+    ports:
+      - "6379:6379"
+  api:
+    build:
+      context: src
+    ports:
+      - "8000:80"
+    depends_on:
+      - redis
+      - worker
+  worker:
+    build:
+      context: src
+    command: -m celery -A tasks worker --loglevel=debug
