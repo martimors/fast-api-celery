@@ -2,7 +2,8 @@ from celery import Celery
 from long_running_task import long_running_task
 
 
-app = Celery("tasks", broker="redis://localhost", backend="redis://localhost")
+# TODO: Separate apps for API and workers
+app = Celery("tasks", broker="redis://redis", backend="redis://redis")
 
 
 @app.task
