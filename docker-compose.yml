@@ -7,6 +7,7 @@ services:
   api:
     build:
       context: src
+      dockerfile: app/Dockerfile
     ports:
       - "8000:80"
     depends_on:
@@ -15,4 +16,6 @@ services:
   worker:
     build:
       context: src
-    command: -m celery -A tasks worker --loglevel=debug
+      dockerfile: worker/Dockerfile
+    depends_on:
+      - redis
